@@ -1,15 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import TimeTable from './TimeTable.js';
+import './ScreenPlay.css';
 
-function App() {
-  return (
-    <div className="App">
-      <div>
+export default class ScreenPlay {
+  render() {
+    return (
+      <div className="App">
+        <div className="Header">
+        </div>
+        <div className="TimeTable">
+          <table>
+            
+          </table>
+        </div>
+        <div className="Controls">
+        </div>
+        <div className="Footer">
+        </div>
       </div>
-      Siganpyo Simulator 2K19
-    </div>
-  );
+    );
+  }
 }
-
-export default App;
