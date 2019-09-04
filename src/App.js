@@ -4,8 +4,8 @@ import './App.css';
 
 import ScreenPlay from './Screens/ScreenPlay.js'
 
-class App() extends Component {
-  this.state = {
+class App extends Component {
+  state = {
     currentScreen: "ScreenPlay"
   }
   render() {
