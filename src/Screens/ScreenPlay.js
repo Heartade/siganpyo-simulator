@@ -3,6 +3,9 @@ import TimeTable from './TimeTable.js';
 import './ScreenPlay.css';
 
 export default class ScreenPlay extends Component {
+  constructor() {
+    setTimeout(()=>{}, 1000);
+  }
   render() {
     return (
       <div className="App">
