@@ -4,7 +4,7 @@ import '../Screens/ScreenPlay.css';
 export default class TimeCell extends Component {
   render() {
     return (
-      <td>blah</td>
+      <td>{this.props.table.class_info[this.props.day][this.props.time]}</td>
     )
   }
 }
