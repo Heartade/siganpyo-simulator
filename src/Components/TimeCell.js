@@ -30,10 +30,14 @@ export default class TimeCell extends Component {
     const timeCell_style = {
       backgroundColor: this.props.table[this.props.day][this.props.time].color,
       borderTop: "1px solid "+borderColor,
-      padding: "4px",
+      paddingTop: "4px",
+      paddingLeft: "4px",
+      paddingRight: "4px",
       textAlign: "left",
       verticalAlign: "text-top",
-      color: "white"
+      color: "white",
+      fontSize: "0.55rem",
+      fontWeight: "200"
     };
 
     return (

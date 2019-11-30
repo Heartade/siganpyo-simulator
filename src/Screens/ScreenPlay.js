@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import TimeTable from './ScreenPlay/TimeTable.js';
+import TimeButton from '../Components/TimeButton.js';
+import OverlayButton from '../Components/OverlayButton.js';
 
 export default class ScreenPlay extends Component {
   state = {
@@ -10,9 +12,11 @@ export default class ScreenPlay extends Component {
         [...Array(12)],
         [...Array(12)],
       ], 
+    tableName: "혼란",
     classHours: 0,
     loop: false,
-    started: false
+    started: false,
+    playing: false
   }
 
   constructor(props) {
@@ -41,7 +45,9 @@ export default class ScreenPlay extends Component {
         '심화 노랑',
         '노랑의 이론',
         '노랑의 실제',
-        '노랑 실험'
+        '노랑 실험',
+        '노랑과 인공지능',
+        '노랑 캡스톤 프로젝트'
       ],
       [
         '빨강의 이해',
@@ -56,7 +62,9 @@ export default class ScreenPlay extends Component {
         '심화 빨강',
         '빨강의 이론',
         '빨강의 실제',
-        '빨강 실험'
+        '빨강 실험',
+        '빨강과 인공지능',
+        '빨강 캡스톤 프로젝트'
       ],
       [
         '초록의 이해',
@@ -71,7 +79,9 @@ export default class ScreenPlay extends Component {
         '심화 초록',
         '초록의 이론',
         '초록의 실제',
-        '초록 실험'
+        '초록 실험',
+        '초록과 인공지능',
+        '초록 캡스톤 프로젝트'
       ],
       [
         '파랑의 이해',
@@ -86,7 +96,9 @@ export default class ScreenPlay extends Component {
         '심화 파랑',
         '파랑의 이론',
         '파랑의 실제',
-        '파랑 실험'
+        '파랑 실험',
+        '파랑과 인공지능',
+        '파랑 캡스톤 프로젝트'
       ],
       ['공강']
     ]
@@ -97,6 +109,48 @@ export default class ScreenPlay extends Component {
     this.currentUserLoc = [0,0];
     this.interval = null;
     this.blockMoveLock = false;
+    this.templates = [
+      [
+        "?????????XXX",
+        "?????????XXX",
+        "?????????XXX",
+        "?????????XXX",
+        "?????????XXX",
+        "저녁이 있는 삶"
+      ],
+      [
+        "XXX?????????",
+        "XXX?????????",
+        "XXX?????????",
+        "XXX?????????",
+        "XXX?????????",
+        "아침이 있는 삶"
+      ],
+      [
+        "????###?????",
+        "????###?????",
+        "????###?????",
+        "????###?????",
+        "????###?????",
+        "강제적 점심 단식"
+      ],
+      [
+        "????????????",
+        "????????????",
+        "????????????",
+        "????????????",
+        "XXXXXXXXXXXX",
+        "불금의 공강"
+      ],
+      [
+        "#???????????",
+        "#???????????",
+        "#???????????",
+        "#???????????",
+        "#???????????",
+        "아침형 인간"
+      ],
+    ]
 
     for(var i = 0; i < 5; i++) {
       for(var j = 0; j < 12; j++) {
@@ -106,12 +160,13 @@ export default class ScreenPlay extends Component {
   }
 
   startLoop() {
-    this.setState({loop: true, started: true}, ()=>{
+    this.setState({loop: true, started: true, playing: true}, ()=>{
       this.interval = setInterval(this.loop.bind(this), 1000);
     })
   }
 
   endLoop() {
+    this.setState({playing: false});
     if(this.interval != null)
       clearInterval(this.interval)
   }
@@ -124,9 +179,22 @@ export default class ScreenPlay extends Component {
   }
 
   resumeLoop() {
+    if(this.state.loop) return;
     this.setState({loop: true, started: true}, ()=>{
       this.interval = setInterval(this.loop.bind(this), 1000);
     })
+  }
+
+  resetLoop() {
+    this.pauseLoop();
+    var table = this.state.table;
+    for(var i = 0; i < 5; i++) {
+      for(var j = 0; j < 12; j++) {
+        table[i][j] = this.default_cell;
+      }
+    }
+    this.currentUserLoc = [0,0];
+    this.setState({table: table, classHours: 0});
   }
 
   loop() {
@@ -146,7 +214,30 @@ export default class ScreenPlay extends Component {
         this.setState({loop: false});
         clearInterval(this.interval);
         this.endLoop();
+        for(var i = 0; i < 5; i++) {
+          for(var j = 0; j < 12; j++) {
+            if(table[i][j].color === this.default_color) {
+              table[i][j].color = this.subject_colors[4];
+            }
+          }
+        }
+        this.setState({table: table}, ()=>{this.checkTable()});
         return false;
+      }
+      // if four classes in a row
+      if(this.currentUserLoc[1] !== -1 &&
+        table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color !== this.subject_colors[4] &&
+        this.currentUserLoc[1]>=2 && 
+        table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color
+        === table[this.currentUserLoc[0]][this.currentUserLoc[1]].color &&
+        table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color
+        === table[this.currentUserLoc[0]][this.currentUserLoc[1]-1].color &&
+        table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color
+        === table[this.currentUserLoc[0]][this.currentUserLoc[1]-2].color
+        ) {
+        for(var j = -1; j < 3; j++)
+          table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = this.default_cell
+        this.setState({classHours: this.state.classHours-4});
       }
       // finish placing a block
       this.currentUserLoc[0] = Math.floor(Math.random()*5);
@@ -173,7 +264,7 @@ export default class ScreenPlay extends Component {
 
   keyHandle(event) {
     console.log(event.key);
-    if(this.blockMoveLock || !this.loop) return;
+    if(this.blockMoveLock || !this.loop || this.state.creditTxt_focus) return;
     switch(event.key) {
       case 'ArrowLeft':
         this.keyLeft();
@@ -234,6 +325,36 @@ export default class ScreenPlay extends Component {
     document.removeEventListener("keydown", this.keyDownListener);
     this.endLoop();
   }
+
+  checkTable() {
+    for(var i = 0; i < this.templates.length; i++) {
+      var flag = true;
+      for(var j = 0; j < 5; j++) {
+        for(var k = 0; k < 12; k++) {
+          console.log(this.templates[i][j][k])
+          switch(this.templates[i][j][k]) {
+            case '#':
+              if(this.state.table[j][k].color === this.subject_colors[4]) flag=false;
+              break;
+            case '?':
+              break;
+            case 'X':
+              if(this.state.table[j][k].color !== this.subject_colors[4]) flag=false;
+              break;
+            default:
+              break;
+          }
+          if(!flag) break;
+          console.log(flag);
+        }
+        if(!flag) break;
+      }
+      if(flag) {
+        this.setState({tableName: this.templates[i][5]});
+        return;
+      }
+    }
+  }
   
   render() {
     const root_div_style = {
@@ -246,7 +367,7 @@ export default class ScreenPlay extends Component {
       flexDirection: "column",
       height: "100vh",
       color: "#666666",
-      fontSize: "0.5rem"
+      fontSize: "0.8rem"
     }
     const table_div_style = {
       flex: "1",
@@ -255,7 +376,7 @@ export default class ScreenPlay extends Component {
       alignContent: "stretch",
       flexDirection: "column",
       boxShadow: "0px 0px 20px 4px #CCCCCC",
-      width: "80%",
+      width: "90%",
       maxWidth: "480px",
       margin: "0px 24px 24px 24px",
       borderRadius: "12px",
@@ -288,26 +409,7 @@ export default class ScreenPlay extends Component {
       backdropFilter: "blur(4px)",
       borderRadius: "12px"
     }
-    const startButton_style = {
-      color: "#FFFFFF",
-      width: "60px",
-      height: "40px",
-      fontSize: "1rem",
-      backgroundColor: this.subject_colors[2],
-      boxShadow: "0px 0px 10px 2px #666666",
-      border: "0",
-      borderRadius: "4px"
-    }
-    const startButton_hover = {
-      color: "#FFFFFF",
-      width: "60px",
-      height: "40px",
-      fontSize: "1rem",
-      backgroundColor: "#229911",
-      boxShadow: "0px 0px 10px 4px #666666",
-      border: "0",
-      borderRadius: "4px"
-    }
+
     return (
       
       <div style={root_div_style}>
@@ -320,13 +422,15 @@ export default class ScreenPlay extends Component {
             color: this.state.creditTxt_focus? "#666666":"#888888",
             backgroundColor: this.state.creditTxt_hover? "#EEEEEE":"#FFFFFF",
             fontSize: "1rem",
-            borderRadius: "4px"
+            borderRadius: "4px",
+            flex: "4"
           }}
             onFocus={()=>{this.setState({creditTxt_focus: true})}}
             onBlur={()=>{this.setState({creditTxt_focus: false})}}
             onMouseOver={()=>{this.setState({creditTxt_hover: true})}}
             onMouseOut={()=>{this.setState({creditTxt_hover: false})}}
           />
+
           <p style={{
             fontWeight: "500", lineHeight: "32px", margin: "8px 8px 8px 0",fontSize: "1rem", color: "#888888", flex: "1", textAlign: "right"}}>
           {this.state.classHours}학점
@@ -335,20 +439,113 @@ export default class ScreenPlay extends Component {
         <div style={table_div_style}>
           <TimeTable defaultColor={this.default_color} table={this.state.table} />
         </div>
-        <div style={{height: "128px"}} className="Controls">
-        
+        <div style={{...control_div_style,
+        margin: "0px 24px 24px 24px",
+        flexDirection: "column",
+        display: this.state.started?this.state.playing?"none":"flex":"none",
+        height: "64px",
+        backgroundColor: "white",
+        justifyContent: "space-evenly",
+        flex: "0 0 auto"
+        }}>
+          <p style={{margin: "0"}}>당신의 시간표는</p>
+          <p style={{margin: "0", fontSize: "1rem", fontWeight: "bold"}}>{this.state.tableName}</p>
+        </div>
+        <div style={{...control_div_style,
+        display: this.state.started?this.state.playing?"flex":"none":"flex",
+        overflow: "visible",
+        justifyContent: "space-between",
+        height: "64px"}}>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            onClick={this.resetLoop.bind(this)}>
+            <i className="material-icons md-24">replay</i>
+          </TimeButton>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            onClick={this.resumeLoop.bind(this)}>
+            <i style={{
+              color: this.state.loop?"#66CC33":"#66AAFF"
+            }} className="material-icons md-24">play_arrow</i>
+          </TimeButton>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            onClick={this.pauseLoop.bind(this)}>
+            <i style={{
+              color: this.state.loop?"#66AAFF":"#CC3366"
+            }} className="material-icons md-24">pause</i>
+          </TimeButton>
         </div>
         <div style={modal_style}>
           <p style={{fontSize: "1.5rem", color: "#FFFFFF"}}>
             시간표 시뮬레이터 2019
           </p>
-          <button style={this.state.startBtn_hover? startButton_hover: startButton_style}
-            onMouseOver={()=>{this.setState({startBtn_hover: true})}}
-            onMouseOut={()=>{this.setState({startBtn_hover: false})}}
+          <TimeButton 
+            default_bcg_color={this.subject_colors[2]} 
+            hover_bcg_color="#229911" 
+            press_bcg_color="#116606" 
             onClick={this.startLoop.bind(this)}>
             시작
-          </button>
+          </TimeButton>
         </div>
+        <OverlayButton
+          left="0" 
+          default_bcg_color="rgba(0,0,0,0)"
+          hover_bcg_color="rgba(102,170,255,0.2)"
+          press_bcg_color="rgba(102,170,255,0.3)"
+          borderRadius="0px 16px 16px 0px"
+          height="80%"
+          width="15%"
+          top="10%"
+          onClick={this.keyLeft.bind(this)}/>
+        <OverlayButton
+          right="0" 
+          default_bcg_color="rgba(0,0,0,0)"
+          hover_bcg_color="rgba(102,170,255,0.2)"
+          press_bcg_color="rgba(102,170,255,0.3)"
+          borderRadius="16px 0px 0px 16px"
+          height="80%"
+          width="15%"
+          top="10%"
+          onClick={this.keyRight.bind(this)}/>
+        <OverlayButton
+          top="0" 
+          default_bcg_color="rgba(0,0,0,0)"
+          hover_bcg_color="rgba(102,170,255,0.2)"
+          press_bcg_color="rgba(102,170,255,0.3)"
+          borderRadius="0px 0px 16px 16px"
+          height="10%"
+          width="50%"
+          left="25%"
+          onClick={this.keyUp.bind(this)}/>
+
       </div>  
     );
   }
