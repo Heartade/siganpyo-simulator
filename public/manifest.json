@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "시간표 시뮬레이터",
+  "name": "시간표 시뮬레이터 2020",
   "icons": [
     {
       "src": "favicon.ico",

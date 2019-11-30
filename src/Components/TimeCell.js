@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../Screens/ScreenPlay.css';
-import { timingSafeEqual } from 'crypto';
+//import { timingSafeEqual } from 'crypto';
 
 export default class TimeCell extends Component {
   render() {

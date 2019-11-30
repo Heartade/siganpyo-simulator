@@ -235,7 +235,7 @@ export default class ScreenPlay extends Component {
         table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color
         === table[this.currentUserLoc[0]][this.currentUserLoc[1]-2].color
         ) {
-        for(var j = -1; j < 3; j++)
+        for(j = -1; j < 3; j++)
           table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = this.default_cell
         this.setState({classHours: this.state.classHours-4});
       }
@@ -510,7 +510,7 @@ export default class ScreenPlay extends Component {
         </div>
         <div style={modal_style}>
           <p style={{fontSize: "1.5rem", marginTop: "32px", color: "#FFFFFF"}}>
-            시간표 시뮬레이터 2019
+            시간표 시뮬레이터 2020
           </p>
           <TimeButton 
             default_bcg_color={this.subject_colors[2]} 

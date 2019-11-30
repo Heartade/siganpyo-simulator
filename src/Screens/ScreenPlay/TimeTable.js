@@ -29,8 +29,6 @@ export default class TimeTable extends Component {
       borderRight: "1px solid "+this.border_color,
       padding: "4px"
     }
-    const tbody_style = {}
-    const tr_style = {}
 
     return (  
       <table style={table_style}>
