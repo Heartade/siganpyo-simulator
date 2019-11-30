@@ -81,7 +81,7 @@ export default class ScreenPlay extends Component {
         '빨강과 문학',
         '역사 속의 빨강',
         '빨강과 디자인',
-        '붉은 산타와 사회주의'
+        '붉은 산타와 사회주의',
       ],
       [
         '초록의 이해',
@@ -270,6 +270,14 @@ export default class ScreenPlay extends Component {
         "X#??????????",
         "X#??????????",
         "1교시는 면했는데..."
+      ],
+      [
+        "#XX?????????",
+        "#XX?????????",
+        "#XX?????????",
+        "#XX?????????",
+        "#XX?????????",
+        "그럴 거면 왜 1교시를"
       ],
       [
         "X???????????",
@@ -489,9 +497,9 @@ export default class ScreenPlay extends Component {
       }
     }
 
-    for(var i = 0; i < this.templates.length; i++) {
+    for(i = 0; i < this.templates.length; i++) {
       var flag = true;
-      for(var j = 0; j < 5; j++) {
+      for(j = 0; j < 5; j++) {
         for(var k = 0; k < 12; k++) {
           console.log(this.templates[i][j][k])
           switch(this.templates[i][j][k]) {
