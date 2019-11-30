@@ -384,7 +384,7 @@ export default class ScreenPlay extends Component {
     }
     const control_div_style = {
       height: "48px", 
-      margin: "6px 0px 12px 0px",
+      margin: "6px 24px 12px 24px",
       display: "flex",
       alignItems: "stretch",
       alignContent: "stretch",
@@ -455,6 +455,8 @@ export default class ScreenPlay extends Component {
         display: this.state.started?this.state.playing?"flex":"none":"flex",
         overflow: "visible",
         justifyContent: "space-between",
+        width: "90%",
+        maxWidth: "360px",
         height: "64px"}}>
           <TimeButton 
             width="40px"
@@ -467,6 +469,7 @@ export default class ScreenPlay extends Component {
             press_bcg_color="#CCCCCC" 
             lightShadow="0px 0px 20px 4px #CCCCCC"
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            borderRadius="12px"
             onClick={this.resetLoop.bind(this)}>
             <i className="material-icons md-24">replay</i>
           </TimeButton>
@@ -481,6 +484,7 @@ export default class ScreenPlay extends Component {
             press_bcg_color="#CCCCCC" 
             lightShadow="0px 0px 20px 4px #CCCCCC"
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            borderRadius="12px"
             onClick={this.resumeLoop.bind(this)}>
             <i style={{
               color: this.state.loop?"#66CC33":"#66AAFF"
@@ -497,6 +501,7 @@ export default class ScreenPlay extends Component {
             press_bcg_color="#CCCCCC" 
             lightShadow="0px 0px 20px 4px #CCCCCC"
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            borderRadius="12px"
             onClick={this.pauseLoop.bind(this)}>
             <i style={{
               color: this.state.loop?"#66AAFF":"#CC3366"
@@ -504,7 +509,7 @@ export default class ScreenPlay extends Component {
           </TimeButton>
         </div>
         <div style={modal_style}>
-          <p style={{fontSize: "1.5rem", color: "#FFFFFF"}}>
+          <p style={{fontSize: "1.5rem", marginTop: "32px", color: "#FFFFFF"}}>
             시간표 시뮬레이터 2019
           </p>
           <TimeButton 
@@ -514,6 +519,15 @@ export default class ScreenPlay extends Component {
             onClick={this.startLoop.bind(this)}>
             시작
           </TimeButton>
+          <p style={{fontSize: "0.8rem", wordWrap: "normal", fontWeight: "lighter", margin: "20px", marginTop: "32px", color: "#DDDDDD"}}>
+            화살표 키를 사용하거나, 화면 가장자리를 터치하여<br/>
+            화면 아래에서 위로 올라가는 수업과 공강을<br/>
+            움직일 수 있습니다.<br/><br/>
+            한 수업이 네 시간을 넘어가면 학생들의 항의로<br/>
+            시간표가 조정됩니다.<br/><br/>
+            수강신청 버튼을 누르는 간절함으로<br/>
+            마음에 드는 시간표를 만들어 보세요.
+          </p>
         </div>
         <OverlayButton
           left="0" 
@@ -545,7 +559,6 @@ export default class ScreenPlay extends Component {
           width="50%"
           left="25%"
           onClick={this.keyUp.bind(this)}/>
-
       </div>  
     );
   }

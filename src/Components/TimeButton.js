@@ -14,6 +14,7 @@ export default class TimeButton extends Component {
         fontFamily: "Noto Sans KR",
         lightShadow: "0px 0px 10px 4px #666666",
         heavyShadow: "0px 0px 6px 2px #444444",
+        borderRadius: "4px",
         default_color: "#FFFFFF",
         hover_color: "#FFFFFF",
         press_color: "#FFFFFF"
@@ -25,7 +26,7 @@ export default class TimeButton extends Component {
         fontSize: "1rem",
         boxShadow: this.props.lightShadow,
         border: "0",
-        borderRadius: "4px",
+        borderRadius: this.props.borderRadius,
         display: "flex",
         alignItems: "center",
         justifyItems: "center",
