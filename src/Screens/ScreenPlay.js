@@ -50,7 +50,12 @@ export default class ScreenPlay extends Component {
         '노랑 캡스톤 프로젝트',
         '노랑융합사고력',
         '노랑과 윤리',
-        '생활 노랑'
+        '생활 노랑',
+        '공학적 노랑',
+        '노랑과 문학',
+        '역사 속의 노랑',
+        '노랑과 디자인',
+        '황색언론에 대하여',
       ],
       [
         '빨강의 이해',
@@ -71,7 +76,12 @@ export default class ScreenPlay extends Component {
         '빨강융합사고력',
         '빨강과 윤리',
         '생활 빨강',
-        '빨간 사상'
+        '빨간 사상',
+        '공학적 빨강',
+        '빨강과 문학',
+        '역사 속의 빨강',
+        '빨강과 디자인',
+        '붉은 산타와 사회주의'
       ],
       [
         '초록의 이해',
@@ -91,7 +101,12 @@ export default class ScreenPlay extends Component {
         '초록 캡스톤 프로젝트',
         '초록융합사고력',
         '초록과 윤리',
-        '생활 초록'
+        '생활 초록',
+        '공학적 초록',
+        '초록과 문학',
+        '역사 속의 초록',
+        '논문 초록 쓰기',
+        '초록과 디자인',
       ],
       [
         '파랑의 이해',
@@ -112,6 +127,10 @@ export default class ScreenPlay extends Component {
         '파랑융합사고력',
         '파랑과 윤리',
         '생활 파랑',
+        '공학적 파랑',
+        '파랑과 문학',
+        '역사 속의 파랑',
+        '파랑과 디자인',
       ],
       ['']
     ]
@@ -195,14 +214,7 @@ export default class ScreenPlay extends Component {
         "XXX?????????",
         "아침이 있는 삶"
       ],
-      [
-        "X???????????",
-        "X???????????",
-        "X???????????",
-        "X???????????",
-        "X???????????",
-        "그래도 1교시는 세이프"
-      ],
+      
       [
         "????###?????",
         "????###?????",
@@ -234,6 +246,22 @@ export default class ScreenPlay extends Component {
         "????????????",
         "????????????",
         "수요일이야, 이 친구들아"
+      ],
+      [
+        "X#??????????",
+        "X#??????????",
+        "X#??????????",
+        "X#??????????",
+        "X#??????????",
+        "1교시는 면했는데..."
+      ],
+      [
+        "X???????????",
+        "X???????????",
+        "X???????????",
+        "X???????????",
+        "X???????????",
+        "그래도 1교시는 세이프"
       ],
       [
         "#???????????",
@@ -288,15 +316,18 @@ export default class ScreenPlay extends Component {
   }
 
   resetLoop() {
-    this.pauseLoop();
     var table = this.state.table;
+    console.log(this.default_color);
+    console.log(this.default_cell.color);
     for(var i = 0; i < 5; i++) {
       for(var j = 0; j < 12; j++) {
-        table[i][j] = this.default_cell;
+        table[i][j] = {...this.default_cell};
       }
     }
     this.currentUserLoc = [0,0];
-    this.setState({table: table, started: false, playing: false, classHours: 0});
+    this.setState({table: table, loop: false, started: false, playing: false, classHours: 0}, ()=>{
+      if(this.interval != null) clearInterval(this.interval)
+    });
   }
 
   loop() {
@@ -339,7 +370,7 @@ export default class ScreenPlay extends Component {
         === table[this.currentUserLoc[0]][this.currentUserLoc[1]-2].color
         ) {
         for(j = -1; j < 3; j++)
-          table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = this.default_cell
+          table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = {...this.default_cell}
         classHours -= 4;
       }
       // finish placing a block
@@ -359,7 +390,7 @@ export default class ScreenPlay extends Component {
     } else {
       // move the block
       table[this.currentUserLoc[0]][this.currentUserLoc[1]] = table[this.currentUserLoc[0]][this.currentUserLoc[1]+1];
-      table[this.currentUserLoc[0]][this.currentUserLoc[1]+1] = this.default_cell;
+      table[this.currentUserLoc[0]][this.currentUserLoc[1]+1] = {...this.default_cell};
       this.setState({table: table}, ()=>{});
       this.blockMoveLock = false;
       return true;
@@ -393,7 +424,7 @@ export default class ScreenPlay extends Component {
         this.currentUserLoc[0]--;
         var table = this.state.table;
         table[this.currentUserLoc[0]][this.currentUserLoc[1]] = table[this.currentUserLoc[0]+1][this.currentUserLoc[1]];
-        table[this.currentUserLoc[0]+1][this.currentUserLoc[1]] = this.default_cell;
+        table[this.currentUserLoc[0]+1][this.currentUserLoc[1]] = {...this.default_cell};
         this.setState({table: table}, ()=>{});
     }
     this.blockMoveLock = false
@@ -409,7 +440,7 @@ export default class ScreenPlay extends Component {
         this.currentUserLoc[0]++;
         var table = this.state.table;
         table[this.currentUserLoc[0]][this.currentUserLoc[1]] = table[this.currentUserLoc[0]-1][this.currentUserLoc[1]];
-        table[this.currentUserLoc[0]-1][this.currentUserLoc[1]] = this.default_cell;
+        table[this.currentUserLoc[0]-1][this.currentUserLoc[1]] = {...this.default_cell};
       this.setState({table: table}, ()=>{});
     }
     this.blockMoveLock = false
