@@ -310,6 +310,7 @@ export default class ScreenPlay extends Component {
     if(this.currentUserLoc[1] === -1 || table[this.currentUserLoc[0]][this.currentUserLoc[1]].color
       !== this.default_color
       ) {
+      var classHours = this.state.classHours;
       // when finished
       if(this.currentUserLoc[1] === 10) {
         console.log("finished");
@@ -339,7 +340,7 @@ export default class ScreenPlay extends Component {
         ) {
         for(j = -1; j < 3; j++)
           table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = this.default_cell
-        this.setState({classHours: this.state.classHours-4});
+        classHours -= 4;
       }
       // finish placing a block
       this.currentUserLoc[0] = Math.floor(Math.random()*5);
@@ -350,7 +351,8 @@ export default class ScreenPlay extends Component {
         color: this.subject_colors[subject_color],
       }
       if(table[this.currentUserLoc[0]][this.currentUserLoc[1]].color !== this.subject_colors[4])
-        this.setState({classHours: this.state.classHours+1});
+        classHours++;
+      this.setState({classHours: classHours});
       this.setState({table: table});
       this.blockMoveLock = false;
       return false;
