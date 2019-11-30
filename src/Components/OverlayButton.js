@@ -33,6 +33,7 @@ export default class OverlayButton extends Component {
         borderRadius: this.props.borderRadius,
         overflow: "hidden",
         display: "flex",
+        maxWidth: "360px",
         alignItems: "center",
         justifyItems: "center",
         alignContent: "center",

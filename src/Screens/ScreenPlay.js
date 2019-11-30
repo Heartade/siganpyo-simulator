@@ -161,6 +161,22 @@ export default class ScreenPlay extends Component {
       [
         "????????????",
         "XXXXXXXXXXXX",
+        "????????????",
+        "XXXXXXXXXXXX",
+        "????????????",
+        "징검다리"
+      ],
+      [
+        "XXXXXXXXXXXX",
+        "????????????",
+        "XXXXXXXXXXXX",
+        "????????????",
+        "XXXXXXXXXXXX",
+        "삼지창"
+      ],
+      [
+        "????????????",
+        "XXXXXXXXXXXX",
         "XXXXXXXXXXXX",
         "XXXXXXXXXXXX",
         "XXXXXXXXXXXX",
@@ -325,7 +341,7 @@ export default class ScreenPlay extends Component {
       }
     }
     this.currentUserLoc = [0,0];
-    this.setState({table: table, loop: false, started: false, playing: false, classHours: 0}, ()=>{
+    this.setState({tableName: "혼란", table: table, loop: false, started: false, playing: false, classHours: 0}, ()=>{
       if(this.interval != null) clearInterval(this.interval)
     });
   }
@@ -462,6 +478,17 @@ export default class ScreenPlay extends Component {
   }
 
   checkTable() {
+    var column_counts = [0,0,0,0,0];
+    var row_counts = [0,0,0,0,0,0,0,0,0,0,0,0];
+    for(var i = 0; i < 5; i++) {
+      for(var j = 0; j < 12; j++) {
+        if(this.state.table[i][j].color !== this.subject_colors[4]) {
+          column_counts[i]++;
+          row_counts[j]++;
+        }
+      }
+    }
+
     for(var i = 0; i < this.templates.length; i++) {
       var flag = true;
       for(var j = 0; j < 5; j++) {
@@ -488,6 +515,18 @@ export default class ScreenPlay extends Component {
         this.setState({tableName: this.templates[i][5]});
         return;
       }
+    }
+
+    if(this.state.classHours < 4) {
+      this.setState({tableName: "등록금이 아까워"});
+    } else if (this.state.classHours < 8) {
+      this.setState({tableName: "널널한 한 학기"});
+    } else if (this.state.classHours < 12) {
+      this.setState({tableName: "여유 있는 삶"});
+    } else if (this.state.classHours > 50) {
+      this.setState({tableName: "초월체"});
+    } else if (this.state.classHours > 30) {
+      this.setState({tableName: "조기졸업을 향하여"});
     }
   }
   
