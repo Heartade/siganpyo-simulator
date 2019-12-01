@@ -815,7 +815,8 @@ export default class ScreenPlay extends Component {
           borderRadius="0px 0px 16px 16px"
           height="10%"
           width="50%"
-          left="25%"
+          left="auto"
+          margin="auto"
           onClick={this.keyUp.bind(this)}/>
       </div>  
     );
