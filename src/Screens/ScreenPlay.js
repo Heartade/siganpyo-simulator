@@ -783,7 +783,8 @@ export default class ScreenPlay extends Component {
             한 수업이 네 시간을 넘어가면 학생들의 항의로<br/>
             시간표가 조정됩니다.<br/><br/>
             수강신청 버튼을 누르는 간절함으로<br/>
-            마음에 드는 시간표를 만들어 보세요.
+            마음에 드는 시간표를 만들어 보세요.<br/><br/>
+            <a href="http://privacy.hearta.de/sigansim" style={{color: "white"}}>개인정보처리방침</a>도 한 번 읽어보세요.
           </p>
         </div>
         <OverlayButton
