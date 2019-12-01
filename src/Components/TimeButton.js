@@ -13,6 +13,7 @@ export default class TimeButton extends Component {
         height: "40px",
         fontFamily: "Noto Sans KR",
         lightShadow: "0px 0px 10px 4px #666666",
+        hoverShadow: "0px 0px 20px 8px #666666",
         heavyShadow: "0px 0px 6px 2px #444444",
         borderRadius: "4px",
         default_color: "#FFFFFF",
@@ -50,6 +51,7 @@ export default class TimeButton extends Component {
             ...this.button_common,
             color: this.props.hover_color,
             backgroundColor: this.props.hover_bcg_color,
+            boxShadow: this.props.hoverShadow,
         }
         return (
             <button style={

@@ -622,16 +622,91 @@ export default class ScreenPlay extends Component {
           <TimeTable defaultColor={this.default_color} table={this.state.table} />
         </div>
         <div style={{...control_div_style,
-        margin: "0px 24px 24px 24px",
-        flexDirection: "column",
         display: this.state.started?this.state.playing?"none":"flex":"none",
-        height: "64px",
-        backgroundColor: "white",
-        justifyContent: "space-evenly",
-        flex: "0 0 auto"
-        }} onClick={this.resetLoop.bind(this)}>
-          <p style={{margin: "0"}}>당신의 시간표는</p>
-          <p style={{margin: "0", fontSize: "1rem", fontWeight: "bold"}}>{this.state.tableName}</p>
+        overflow: "visible",
+        justifyContent: "space-between",
+        width: "90%",
+        maxWidth: "480px",
+        height: "64px"}}>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            hoverShadow= "0px 0px 20px 6px #CCCCCC"
+            borderRadius="12px"
+            onClick={this.resetLoop.bind(this)}>
+            <i className="material-icons md-24">replay</i>
+          </TimeButton>
+          <div style={{
+            width: "40px",
+            height: "40px"
+          }}></div>
+          <div style={{
+            width: "20px",
+            height: "40px"
+          }}></div>
+          <div style={{...control_div_style,
+          margin: "0px 24px 24px 24px",
+          flexDirection: "column",
+          display: this.state.started?this.state.playing?"none":"flex":"none",
+          height: "64px",
+          width: "auto",
+          backgroundColor: "white",
+          justifyContent: "space-evenly",
+          flex: "0 0 auto"
+          }} onClick={this.resetLoop.bind(this)}>
+            <p style={{margin: "0"}}>당신의 시간표는</p>
+            <p style={{margin: "0", fontSize: "1rem", fontWeight: "bold"}}>{this.state.tableName}</p>
+          </div>
+          <div style={{
+            width: "20px",
+            height: "40px"
+          }}></div>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            hoverShadow= "0px 0px 20px 6px #CCCCCC"
+            borderRadius="12px"
+            onClick={()=>{window.open("http://twitter.com/share?text=제%20다음%20학기%20시간표는%20'"+this.state.tableName+"!'\
+&url=http://sigansim.hearta.de\
+&hashtags="+this.state.tableName.replace(' ','_')+',시간표_시뮬레이터')}}>
+            <i className="socicon-twitter"></i>
+          </TimeButton>
+          <TimeButton 
+            width="40px"
+            height="40px"
+            default_color="#66AAFF"
+            hover_color="#AADDFF"
+            press_color="#AADDFF"
+            default_bcg_color="#FFFFFF" 
+            hover_bcg_color="#FFFFFF" 
+            press_bcg_color="#CCCCCC" 
+            lightShadow="0px 0px 20px 4px #CCCCCC"
+            heavyShadow= "0px 0px 6px 2px #AAAAAA"
+            hoverShadow= "0px 0px 20px 6px #CCCCCC"
+            borderRadius="12px"
+            onClick={()=>{window.open("http://www.facebook.com/dialog/share?app_id=481994686008726\
+&href=http://sigansim.hearta.de\
+&redirect_uri=http://sigansim.hearta.de\
+&display=page\
+&hashtag=%23"+this.state.tableName.replace(' ','_'))}}>
+            <i className="socicon-facebook"></i>
+          </TimeButton>
         </div>
         <div style={{...control_div_style,
         display: this.state.started?this.state.playing?"flex":"none":"flex",

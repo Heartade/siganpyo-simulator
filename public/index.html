@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://s3.amazonaws.com/icomoon.io/114779/Socicon/style.css?u8vidh" rel="stylesheet" >
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta
+      name="theme-color" 
+      content="#000000" />
+    <meta property="og:url" content="http://sigansim.hearta.de" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="시간표 시뮬레이터" />
+    <meta property="og:description" content="한국의 전통놀이 수강신청" />
+    <meta property="og:image" content="https://imgur.com/e1ysO7W.png" />
+    <meta property="og:locale" content="ko_KR"/>
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="한국의 전통놀이 수강신청"
     />
     <link rel="apple-touch-icon" href="logo192.png" />
     <!--
@@ -29,6 +38,14 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
