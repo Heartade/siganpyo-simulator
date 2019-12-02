@@ -552,12 +552,13 @@ export default class ScreenPlay extends Component {
         }
       }
     }
+    console.log(column_counts);
+    console.log(row_counts);
 
     for(i = 0; i < this.templates.length; i++) {
       var flag = true;
       for(j = 0; j < 5; j++) {
         for(var k = 0; k < 12; k++) {
-          console.log(this.templates[i][j][k])
           switch(this.templates[i][j][k]) {
             case '#':
               if(this.state.table[j][k].color === this.subject_colors[4]) flag=false;
@@ -571,7 +572,6 @@ export default class ScreenPlay extends Component {
               break;
           }
           if(!flag) break;
-          console.log(flag);
         }
         if(!flag) break;
       }
@@ -597,16 +597,16 @@ export default class ScreenPlay extends Component {
       (column_counts)=>{
         for(i = 0; i < 4; i++){
           if(column_counts[i]>=column_counts[i+1]) return false; 
-          return true;
         }
+        return true;
       })(column_counts)) {
         this.setState({tableName: "갈수록 고난"})
     } else if ((
       (column_counts)=>{
         for(i = 0; i < 4; i++){
-          if(column_counts[i]<=column_counts[i+1]) return false; 
-          return true;
+          if(column_counts[i]<=column_counts[i+1]) return false;
         }
+        return true;
       })(column_counts)) {
         this.setState({tableName: "단조감소빡셈"})
     }
@@ -774,10 +774,7 @@ export default class ScreenPlay extends Component {
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
             hoverShadow= "0px 0px 20px 6px #CCCCCC"
             borderRadius="12px"
-            onClick={()=>{window.open(encodeURI("http://www.facebook.com/dialog/feed?app_id=481994686008726\
-&href=http://sigansim.hearta.de\
-&display=page\
-&hashtag=#"+this.state.tableName.replace(' ','_')))}}>
+            onClick={()=>{window.open(encodeURI("http://www.facebook.com/dialog/feed?app_id=481994686008726&href=http://sigansim.hearta.de&display=page&hashtag=#"+this.state.tableName.replace(' ','_')))}}>
             <i className="socicon-facebook"></i>
           </TimeButton>
         </div>
