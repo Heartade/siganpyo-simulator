@@ -453,11 +453,8 @@ export default class ScreenPlay extends Component {
           table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = {...this.default_cell}
         classHours -= 4;
       }
-      // finish placing a block
-      this.currentUserLoc[0] = Math.floor(Math.random()*5);
-      this.currentUserLoc[1] = 11;
       // when game finished
-      if(table[this.currentUserLoc[0]][this.currentUserLoc[1]].color !== this.default_color) {
+      else if(this.currentUserLoc[1] === 10) {
         console.log("finished");
         this.setState({loop: false});
         clearInterval(this.interval);
@@ -472,6 +469,10 @@ export default class ScreenPlay extends Component {
         this.setState({table: table}, ()=>{this.checkTable()});
         return false;
       }
+      // finish placing a block
+      this.currentUserLoc[0] = Math.floor(Math.random()*5);
+      this.currentUserLoc[1] = 11;
+      
       const subject_color = Math.floor(Math.random()*5);
       table[this.currentUserLoc[0]][this.currentUserLoc[1]] = {
         class_info: this.subject_names[subject_color][Math.floor(Math.random()*this.subject_names[subject_color].length)],
