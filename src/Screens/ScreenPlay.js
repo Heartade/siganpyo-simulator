@@ -682,9 +682,9 @@ export default class ScreenPlay extends Component {
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
             hoverShadow= "0px 0px 20px 6px #CCCCCC"
             borderRadius="12px"
-            onClick={()=>{window.open("http://twitter.com/share?text=제%20다음%20학기%20시간표는%20'"+this.state.tableName+"!'\
-&url=http://sigansim.hearta.de\
-&hashtags="+this.state.tableName.replace(' ','_')+',시간표_시뮬레이터')}}>
+            onClick={()=>{window.open(encodeURI("http://twitter.com/share?text=제 다음 학기 시간표는 '"+this.state.tableName+"'!\
+&hashtags="+this.state.tableName.replace(' ','_')+',시간표_시뮬레이터\
+&url=http://sigansim.hearta.de'))}}>
             <i className="socicon-twitter"></i>
           </TimeButton>
           <TimeButton 
@@ -700,11 +700,10 @@ export default class ScreenPlay extends Component {
             heavyShadow= "0px 0px 6px 2px #AAAAAA"
             hoverShadow= "0px 0px 20px 6px #CCCCCC"
             borderRadius="12px"
-            onClick={()=>{window.open("http://www.facebook.com/dialog/share?app_id=481994686008726\
+            onClick={()=>{window.open(encodeURI("http://www.facebook.com/dialog/feed?app_id=481994686008726\
 &href=http://sigansim.hearta.de\
-&redirect_uri=http://sigansim.hearta.de\
 &display=page\
-&hashtag=%23"+this.state.tableName.replace(' ','_'))}}>
+&hashtag=#"+this.state.tableName.replace(' ','_')))}}>
             <i className="socicon-facebook"></i>
           </TimeButton>
         </div>
