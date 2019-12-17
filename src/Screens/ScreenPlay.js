@@ -449,7 +449,7 @@ export default class ScreenPlay extends Component {
         table[this.currentUserLoc[0]][this.currentUserLoc[1]+1].color
         === table[this.currentUserLoc[0]][this.currentUserLoc[1]-2].color
         ) {
-        for(j = -1; j < 3; j++)
+        for(let j = -1; j < 3; j++)
           table[this.currentUserLoc[0]][this.currentUserLoc[1]-j] = {...this.default_cell}
         classHours -= 4;
       }
